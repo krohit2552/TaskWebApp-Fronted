@@ -1,0 +1,11 @@
+<div class="notes-dialog-title-wrapper">
+    <h1 mat-dialog-title>Notes</h1>
+  </div>
+  <div mat-dialog-content class="notes-dialog-content">
+    <textarea matInput [(ngModel)]="data.notes" class="notes-textarea"></textarea>
+  </div>
+  <div mat-dialog-actions class="notes-dialog-actions">
+    <button mat-button (click)="onClose()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+  </div>
+  

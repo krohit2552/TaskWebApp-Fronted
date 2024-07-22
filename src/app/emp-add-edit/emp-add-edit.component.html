@@ -1,0 +1,71 @@
+<div mat-dialog-title  class="dialog-title" >
+    <h1 class="heading">NEW TASK</h1>
+    <div class="status-toggle">
+        <button
+            class="status-button"
+            [class.active]="taskStatus"
+            (click)="setTaskStatus(true)">
+            Open
+        </button>
+        <button
+            class="status-button"
+            [class.active]="!taskStatus"
+            (click)="setTaskStatus(false)">
+            Closed
+        </button>
+    </div>
+</div>
+<form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Entity name</mat-label>
+                <input matInput type="text" placeholder="Ex. Technical" formControlName="entityname">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Time</mat-label>
+                <input matInput type="time" [value]="currentTime" formControlName="time">
+                <mat-hint>HH:MM</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Task Type</mat-label>
+                <mat-select formControlName="taskType" (selectionChange)="onTaskTypeChange($event)">
+                    <mat-option *ngFor="let val of taskTypes" [value]="val">{{ val }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="row" *ngIf="showContactNumber">
+            <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput type="tel" formControlName="contactNumber" placeholder="Ex. 123-456-7890">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Contact Person</mat-label>
+                <input matInput type="text" formControlName="contactperson">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Notes(optional)</mat-label>
+                <textarea matInput formControlName="notes" rows="4" cols="30"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" type="submit">{{ data ? 'Update' : 'Save' }}</button>
+    </div>
+</form>
